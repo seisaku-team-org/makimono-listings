@@ -1,0 +1,19 @@
+name: validate
+
+on:
+  pull_request:
+    paths: ["listings/**", "scripts/**"]
+  push:
+    branches: [main]
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+      # 依存パッケージゼロなので install 不要
+      - name: 出品MDを検証
+        run: node scripts/validate.mjs
